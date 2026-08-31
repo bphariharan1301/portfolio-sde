@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+@theme inline {
+  --color-bg: var(--palette-bg);
+  --color-bg-elev: var(--palette-bg-elev);
+  --color-surface: var(--palette-surface);
+  --color-surface-hi: var(--palette-surface-hi);
+
+  --color-line: var(--palette-line);
+  --color-line-hi: var(--palette-line-hi);
+
+  --color-fg: var(--palette-fg);
+  --color-muted: var(--palette-muted);
+  --color-subtle: var(--palette-subtle);
+  --color-faint: var(--palette-faint);
+
+  --color-accent: var(--palette-accent);
+  --color-accent-dim: var(--palette-accent-dim);
+  --color-accent-soft: var(--palette-accent-soft);
+  --color-signal: var(--palette-signal);
+  --color-live: var(--palette-live);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --text-display: clamp(2.5rem, 7.2vw, 5.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
+
+  --text-h2: clamp(1.75rem, 3.6vw, 2.75rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.025em;
+
+  --text-h3: clamp(1.25rem, 2.2vw, 1.625rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.018em;
+
+  --text-lead: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+  --text-lead--letter-spacing: -0.012em;
+
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.14em;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root,
+html.dark {
+  color-scheme: dark;
+  --header-h: 60px;
+
+  --palette-bg: #08090a;
+  --palette-bg-elev: #0c0e10;
+  --palette-surface: #101315;
+  --palette-surface-hi: #14181b;
+
+  --palette-line: rgba(255, 255, 255, 0.08);
+  --palette-line-hi: rgba(255, 255, 255, 0.16);
+
+  --palette-fg: #f2f3f5;
+  --palette-muted: #b8bec6;
+  --palette-subtle: #8b929b;
+  --palette-faint: #6a717a;
+
+  --palette-accent: #7ea6ff;
+  --palette-accent-dim: #4d6fc4;
+  --palette-accent-soft: rgba(126, 166, 255, 0.12);
+  --palette-signal: #f0b45e;
+  --palette-live: #4ade80;
+
+  --heading-from: #ffffff;
+  --heading-to: #c8ced6;
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --selection-bg: rgba(126, 166, 255, 0.28);
+  --selection-fg: #fff;
+}
+
+html.light {
+  color-scheme: light;
+  --header-h: 60px;
+
+  --palette-bg: #f6f5f2;
+  --palette-bg-elev: #ffffff;
+  --palette-surface: #eeedeb;
+  --palette-surface-hi: #e6e5e2;
+
+  --palette-line: rgba(20, 23, 28, 0.09);
+  --palette-line-hi: rgba(20, 23, 28, 0.16);
+
+  --palette-fg: #14171c;
+  --palette-muted: #3f4650;
+  --palette-subtle: #5c6570;
+  --palette-faint: #7a828c;
+
+  --palette-accent: #3d63d8;
+  --palette-accent-dim: #2f4fb0;
+  --palette-accent-soft: rgba(61, 99, 216, 0.1);
+  --palette-signal: #b7791f;
+  --palette-live: #1a9d4a;
+
+  --heading-from: #14171c;
+  --heading-to: #4a5560;
+  --grid-line: rgba(20, 23, 28, 0.06);
+  --selection-bg: rgba(61, 99, 216, 0.22);
+  --selection-fg: #14171c;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    background-color: var(--color-bg);
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    transition:
+      background-color 220ms var(--ease-out-quint),
+      color 220ms var(--ease-out-quint);
+  }
+
+  /* Anchor targets clear the sticky header. */
+  section[id],
+  div[id] {
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
+
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 100;
+    border-radius: 9999px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transform: translateY(-300%);
+    transition: transform 160ms var(--ease-out-quint);
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    transform: translateY(0);
+  }
+
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 74rem;
+    padding-inline: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 40px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 56px;
+    }
+  }
+
+  /*
+   * Safe on elements whose descendants are plain text. Do NOT use it on an
+   * element that contains transformed/animated children — background-clip:text
+   * will not paint over a child that has its own compositing layer.
+   */
+  .text-gradient-fade {
+    background: linear-gradient(
+      180deg,
+      var(--heading-from) 0%,
+      var(--heading-to) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  .mask-fade-r {
+    mask-image: linear-gradient(to right, #000 70%, transparent 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
