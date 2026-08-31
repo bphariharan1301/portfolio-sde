@@ -78,7 +78,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#08090a" },
     { media: "(prefers-color-scheme: light)", color: "#f6f5f2" },
   ],
-  colorScheme: "dark light",
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -119,7 +119,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`light ${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>

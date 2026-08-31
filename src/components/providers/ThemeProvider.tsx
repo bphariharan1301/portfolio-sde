@@ -14,7 +14,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { applyTheme, readTheme, type Theme } from "@/lib/theme";
+import { applyTheme, DEFAULT_THEME, readTheme, type Theme } from "@/lib/theme";
 
 const palettes = {
   dark: {
@@ -108,7 +108,7 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(DEFAULT_THEME);
 
   useEffect(() => {
     setThemeState(readTheme());
